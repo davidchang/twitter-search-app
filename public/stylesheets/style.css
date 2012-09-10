@@ -8,6 +8,7 @@ input[type=text] {
   margin: 10px;
   width: 575px;
   color: black;
+  padding-left: 5px;
 }
 .center {
   width: 600px;
