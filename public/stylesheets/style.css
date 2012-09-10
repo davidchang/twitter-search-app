@@ -1,0 +1,25 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #00a388;
+}
+input[type=text] {
+  font-size: 2.5em;
+  margin: 10px;
+  width: 575px;
+  color: black;
+}
+.center {
+  width: 600px;
+  height: 64px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -300px;
+  margin-top: -32px;
+  background-color: #beeb9f;
+  color: #00a388;
+  /*border: 5px solid @dark-blue;*/
+
+  outline: 10px solid #beeb9f;
+}
