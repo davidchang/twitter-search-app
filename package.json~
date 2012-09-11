@@ -8,6 +8,12 @@
   "dependencies": {
     "express": "3.0.0rc4",
     "jade": "*",
-    "less-middleware": "*"
+    "less-middleware": "*",
+    "socket.io": "0.9.10",
+    "node-twitter": "latest"
+  },
+  "engines": {
+    "node": "0.8.4",
+    "npm": "1.1.41"
   }
 }

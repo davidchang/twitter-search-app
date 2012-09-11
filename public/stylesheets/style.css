@@ -24,3 +24,31 @@ input[type=text] {
 
   outline: 10px solid #beeb9f;
 }
+.wrap {
+  width: 720px;
+  margin: 0 auto;
+}
+.wrap h1 {
+  font-size: 3em;
+}
+.wrap #tweets {
+  background-color: #beeb9f;
+  color: #00a388;
+  padding: 25px;
+}
+.wrap #tweets .tweet {
+  margin: 10px 0px;
+  padding: 15px 0px 6px;
+  border-top: 1px solid #00a388;
+}
+.wrap #tweets .tweet:last-child {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+.wrap #tweets #firstTweet {
+  font-weight: bold;
+  font-size: 1.5em;
+  border-top: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+}

@@ -1,7 +1,11 @@
 extends layout
 
 block content
-  div.wrap
-    p= title
+  .wrap
+    h1= title
+    #tweets
+      .tweet#firstTweet= "Loading Tweets..."
 block scripts
   script(src='/javascripts/jquery.js')
+  script(src='/socket.io/socket.io.js')
+  script(src='/javascripts/functions.js')

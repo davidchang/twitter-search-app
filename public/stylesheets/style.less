@@ -28,3 +28,37 @@ input[type=text] {
    /*border: 5px solid @dark-blue;*/
    outline: 10px solid @light-green;
 }
+
+.wrap {
+	width: 720px;
+	margin: 0 auto;
+	
+	h1 {
+		font-size: 3em;
+	}
+	
+	#tweets {
+		background-color: @light-green;
+		color: @dark-blue;
+		padding: 25px;
+		
+		.tweet {
+			margin: 10px 0px;
+			padding: 15px 0px 6px;
+			border-top: 1px solid @dark-blue;
+			
+			&:last-child {
+				padding-bottom: 0px;
+				margin-bottom: 0px;
+			}
+		}
+		
+		#firstTweet {
+			font-weight: bold;
+			font-size: 1.5em;
+			border-top: 0px;
+			margin-top: 0px;
+			padding-top: 0px;
+		}
+	}
+}
