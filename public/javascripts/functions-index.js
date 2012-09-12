@@ -4,6 +4,6 @@ $search.keypress(function(e) {
 	if (code == 13) {
 		var searchTerm = $search.val();
 		if(searchTerm)
-			window.location = window.location.origin + searchTerm;
+			window.location = window.location.origin + "/" + searchTerm;
 	}
 });

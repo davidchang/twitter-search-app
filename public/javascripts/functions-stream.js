@@ -5,7 +5,7 @@ var h=/\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g,
 var template = new t("<div class='tweet'>{{=text}}</div>");
 var $firstTweet = $('#firstTweet');
 
-var socket = io.connect('http://localhost');
+var socket = io.connect(window.location.origin);
 socket.on('tweet', function (data) {
 	$(template.render({ text: data })).insertAfter($firstTweet);
 });
