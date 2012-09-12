@@ -2,10 +2,9 @@ extends layout
 
 block content
   .wrap
-    h1= title
+    h1#title= title
     #tweets
-      .tweet#firstTweet= "Loading Tweets..."
+      .tweet#firstTweet= "Streaming Tweets..."
 block scripts
-  script(src='/javascripts/jquery.js')
   script(src='/socket.io/socket.io.js')
-  script(src='/javascripts/functions.js')
+  script(src='/javascripts/functions-stream.js')

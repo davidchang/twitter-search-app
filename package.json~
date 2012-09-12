@@ -10,7 +10,7 @@
     "jade": "*",
     "less-middleware": "*",
     "socket.io": "0.9.10",
-    "node-twitter": "latest"
+    "ntwitter": "latest"
   },
   "engines": {
     "node": "0.8.4",

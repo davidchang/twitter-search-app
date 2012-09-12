@@ -2,4 +2,6 @@ extends layout
 
 block content
   div.center
-    input(type='text', placeholder='Search Twitter...', id='search')
+    input(type='text', placeholder='Search Twitter...', id='search', autofocus='true')
+block scripts
+  script(src='/javascripts/functions-index.js')

@@ -7,7 +7,15 @@ var express = require('express')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path')
-  , Twitter = require('node-twitter');
+  , twitter = require('ntwitter');
+
+/* TWITTER API */
+var twit = new twitter({
+	consumer_key: 'DbCwANKEP9tiT3r0Eeg',
+	consumer_secret: 'NrvIoAHtkiIsBINDgXwSCZFFeozhMbBFQDU5GwLBLk',
+	access_token_key: '229849894-V799oSBnGKm3nrwPMFerIbEsPiGTWr3uqO2DpfzI',
+	access_token_secret: 'bbZdwtqpwseThw54iVCi45xtC5e96VFNP5nTi6apI'
+});
 
 /* EXPRESS */
 var app = express();
@@ -35,47 +43,42 @@ var io = require('socket.io').listen(server);
 io.configure(function() {
 	io.set('close timeout', 60 * 10);
 });
+io.set('log level', 1);
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
 app.get('/', routes.index);
-app.get('/:stream', function(req, res) {
-  res.render('stream', { title: 'Search Twitter | ' + req.params.stream });
-  io.sockets.on('connection', function(socket) {
-  
-	var publishFlag = true;
-	setInterval(function() {
-		publishFlag = true;
-	}, 1500);
-  
-	/* TWITTER API */
-	var twitterStreamClient = new Twitter.StreamClient(
-		'DbCwANKEP9tiT3r0Eeg',
-		'NrvIoAHtkiIsBINDgXwSCZFFeozhMbBFQDU5GwLBLk',
-		'229849894-V799oSBnGKm3nrwPMFerIbEsPiGTWr3uqO2DpfzI',
-		'bbZdwtqpwseThw54iVCi45xtC5e96VFNP5nTi6apI'
-	);
+app.get('/:stream', routes.stream);
 
-	twitterStreamClient.on('close', function() {
-		console.log('Connection closed.');
+io.sockets.on('connection', function(socket) {
+
+	socket.on('stream', function(searchTerm) {
+		runStream(socket, searchTerm);
 	});
-	twitterStreamClient.on('end', function() {
-		console.log('End of Line.');
-	});
-	twitterStreamClient.on('error', function(error) {
-		console.log('Error: ' + (error.code ? error.code + ' ' + error.message : error.message));
-	});
-	twitterStreamClient.on('tweet', function(tweet) {
-		if(publishFlag) {
-			socket.emit('tweet', tweet);
-			publishFlag = false;
-		}
-	});
-	/* End of TWITTER API */
-	
-	twitterStreamClient.start([req.params.stream]);
-  });
 });
+
 /* End of EXPRESS */
+
+function runStream(socket, searchTerm) {
+	console.log('started up with ' + searchTerm);
+	twit.stream('statuses/filter', { track: [ searchTerm ] },
+		function(stream) {
+			//throttle every second
+			var publishFlag = true;
+			setInterval(function() {
+				publishFlag = true;
+			}, 1000);
+		
+			stream.on('data', function(tweet) {
+				if(publishFlag) {
+					socket.emit('tweet', tweet.text);
+					publishFlag = false;
+				}
+			});
+			
+			stream.on('error', function(d) { console.log("ERROR: " + d); stream.destroy(); runStream(socket, searchTerm); });
+		}
+	);
+}
